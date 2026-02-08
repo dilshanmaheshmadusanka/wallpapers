@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ResolutionX – Ultra HD Anime Wallpapers</title>
+
+  <!-- SEO -->
+  <meta name="description" content="ResolutionX – Ultra HD anime wallpapers. Download 4K & 8K anime backgrounds. Login, save favorites, explore trending anime wallpapers.">
+  <meta name="keywords" content="anime wallpapers, 4k anime, anime background, resolutionx">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- AdSense placeholder (ADD YOUR CODE LATER) -->
+  <!--
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXX"
+     crossorigin="anonymous"></script>
+  -->
+
+  <style>
+    :root {
+      --bg:#0b0b12;
+      --card:#151528;
+      --text:#fff;
+      --muted:#aaa;
+      --accent:#7f5cff;
+      --accent2:#00f7ff;
+    }
+
+    body.light {
+      --bg:#f2f4ff;
+      --card:#fff;
+      --text:#111;
+      --muted:#555;
+    }
+
+    * {
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Orbitron,sans-serif;
+    }
+
+    body {
+      background:var(--bg);
+      color:var(--text);
+      transition:.3s;
+    }
+
+    header {
+      padding:1rem 2rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-bottom:1px solid rgba(255,255,255,.1);
+    }
+
+    button,input {
+      border:none;
+      border-radius:20px;
+      padding:.5rem .9rem;
+    }
+
+    button {
+      cursor:pointer;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+    }
+
+    .hero {
+      text-align:center;
+      padding:4rem 1rem;
+    }
+
+    .controls {
+      display:flex;
+      gap:1rem;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-bottom:1.5rem;
+    }
+
+    .gallery {
+      max-width:1200px;
+      margin:auto;
+      padding:1rem;
+    }
+
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:1.5rem;
+    }
+
+    .card {
+      background:var(--card);
+      border-radius:16px;
+      overflow:hidden;
+      position:relative;
+      transition:.3s;
+    }
+
+    .card:hover {
+      transform:scale(1.04);
+      box-shadow:0 0 25px rgba(0,247,255,.4);
+    }
+
+    .card img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .info {
+      position:absolute;
+      bottom:0;
+      width:100%;
+      padding:.6rem;
+      background:rgba(0,0,0,.6);
+      font-size:.7rem;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .info span {
+      cursor:pointer;
+    }
+
+    footer {
+      margin-top:3rem;
+      padding:1.5rem;
+      text-align:center;
+      font-size:.75rem;
+      color:var(--muted);
+    }
+
+    /* Ad slot */
+    .ad {
+      max-width:728px;
+      height:90px;
+      margin:2rem auto;
+      background:#222;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:.8rem;
+      color:#888;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Resolution<span style="color:var(--accent2)">X</span></h1>
+  <div>
+    <button onclick="login()">🔐 Login</button>
+    <button onclick="toggleTheme()">🌙</button>
+  </div>
+</header>
+
+<section class="hero">
+  <h2>Ultra HD Anime Wallpapers</h2>
+  <p>Login • Save Favorites • Trending • AI Tags</p>
+</section>
+
+<div class="controls">
+  <input id="search" placeholder="Search AI tags..." onkeyup="filter()">
+  <button onclick="showTrending()">🔥 Trending</button>
+  <button onclick="showFavorites()">❤️ Favorites</button>
+</div>
+
+<!-- AD SLOT -->
+<div class="ad">
+  Google AdSense Banner (728x90)
+</div>
+
+<section class="gallery">
+  <div class="grid" id="grid">
+
+    <!-- WALLPAPER -->
+    <div class="card" data-tags="cyberpunk neon futuristic city" data-id="1">
+      <img loading="lazy" src="https://wallpapercave.com/wp/wp10653371.jpg">
+      <div class="info">
+        <span onclick="favorite(1)">❤️</span>
+        <a href="https://wallpapercave.com/wp/wp10653371.jpg" download>⬇</a>
+      </div>
+    </div>
+
+    <div class="card" data-tags="fantasy anime sky magic" data-id="2">
+      <img loading="lazy" src="https://wallpapercave.com/wp/wp8984732.jpg">
+      <div class="info">
+        <span onclick="favorite(2)">❤️</span>
+        <a href="https://wallpapercave.com/wp/wp8984732.jpg" download>⬇</a>
+      </div>
+    </div>
+
+    <div class="card" data-tags="dark anime rain night" data-id="3">
+      <img loading="lazy" src="https://wallpapercave.com/wp/wp10103569.jpg">
+      <div class="info">
+        <span onclick="favorite(3)">❤️</span>
+        <a href="https://wallpapercave.com/wp/wp10103569.jpg" download>⬇</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2026 ResolutionX • Anime Wallpaper Platform
+</footer>
+
+<script>
+  let user = localStorage.getItem("user");
+  let favorites = JSON.parse(localStorage.getItem("fav") || "[]");
+  let views = JSON.parse(localStorage.getItem("views") || "{}");
+
+  function login() {
+    if (!user) {
+      user = prompt("Enter username:");
+      if (user) localStorage.setItem("user", user);
+    } else {
+      alert("Logged in as " + user);
+    }
+  }
+
+  function favorite(id) {
+    if (!favorites.includes(id)) favorites.push(id);
+    localStorage.setItem("fav", JSON.stringify(favorites));
+    alert("Added to favorites ❤️");
+  }
+
+  function showFavorites() {
+    document.querySelectorAll(".card").forEach(c => {
+      c.style.display = favorites.includes(+c.dataset.id) ? "block" : "none";
+    });
+  }
+
+  function showTrending() {
+    document.querySelectorAll(".card").forEach(c => {
+      views[c.dataset.id] = (views[c.dataset.id] || 0) + 1;
+    });
+    localStorage.setItem("views", JSON.stringify(views));
+    alert("Trending based on views 🔥");
+  }
+
+  function filter() {
+    const q = search.value.toLowerCase();
+    document.querySelectorAll(".card").forEach(c => {
+      c.style.display = c.dataset.tags.includes(q) ? "block" : "none";
+    });
+  }
+
+  function toggleTheme() {
+    document.body.classList.toggle("light");
+  }
+</script>
+
+</body>
+</html>
